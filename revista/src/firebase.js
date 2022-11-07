@@ -45,3 +45,19 @@ export const useLoadUsers = () => {
   onUnmounted(close)
   return users
 }
+
+// EDICIONES
+// export const getEdicion = async id => {
+//   const edicion = await edicionesCollection.doc(id).get()
+//   return edicion.exists ? user.data() : null
+// }
+const edicionesCollection = db.collection('ediciones')
+
+export const useLoadEdiciones = () => {
+  const ediciones = ref([])
+  const close = edicionesCollection.onSnapshot(snapshot => {
+    ediciones.value = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }))
+  })
+  onUnmounted(close)
+  return ediciones
+}
