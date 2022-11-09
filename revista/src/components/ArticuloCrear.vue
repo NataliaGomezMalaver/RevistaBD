@@ -2,34 +2,37 @@
   <div class="card card-body mt-4">
     <form @submit.prevent="onSubmit">
       <div class="form-group">
-        <label>Título</label>
-        <input v-model="form.titulo" class="form-control" required />
+        <label>Name</label>
+        <input v-model="form.name" class="form-control" required />
       </div>
 
       <div class="form-group mt-3">
-        <label>Texto</label>
+        <label>Email</label>
         <input
-          v-model="form.texto" class="form-control" required />
+          v-model="form.email"
+          class="form-control"
+          type="email"
+          required
+        />
       </div>
-  
-      <button type="submit" class="btn btn-success mt-3">
-        Publicar Artículo
-      </button>
 
+      <button type="submit" class="btn btn-success mt-3">
+        Create User
+      </button>
     </form>
   </div>
 </template>
 
 <script>
-import { createArt } from '@/firebase'
+import { createUser } from '@/firebase'
 import { reactive } from 'vue'
 export default {
   setup() {
-    const form = reactive({ titulo: '', texto: '' })
+    const form = reactive({ name: '', email: '' })
     const onSubmit = async () => {
-      await createArt({ ...form })
-      form.titulo = ''
-      form.texto = ''
+      await createUser({ ...form })
+      form.name = ''
+      form.email = ''
     }
     return { form, onSubmit }
   }

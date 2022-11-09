@@ -11,15 +11,18 @@
 
     <ul>
         <li>
+
             <button class="btn btn-primary btn-sm me-2"  @click="c2019()">
              2019
             </button>
             <button class="btn btn-primary btn-sm me-2"  @click="c2020()">
              2020
             </button>
+            <router-link to="/HomeView">
             <button class="btn btn-primary btn-sm me-2"  @click="c2021()">
              2021
             </button>
+            </router-link>
             <button class="btn btn-primary btn-sm me-2"  @click="c2022()">
              2022
             </button>

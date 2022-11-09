@@ -18,32 +18,32 @@ const config = {
 const firebaseApp = firebase.initializeApp(config)
 
 const db = firebaseApp.firestore()
-const usersCollection = db.collection('users')
+const artCollection = db.collection('articulos')
 
-export const createUser = user => {
-  return usersCollection.add(user)
+export const createArt = art => {
+  return artCollection.add(art)
 }
 
-export const getUser = async id => {
-  const user = await usersCollection.doc(id).get()
-  return user.exists ? user.data() : null
+export const getArt = async id => {
+  const art = await artCollection.doc(id).get()
+  return art.exists ? art.data() : null
 }
 
-export const updateUser = (id, user) => {
-  return usersCollection.doc(id).update(user)
+export const updateArt = (id, art) => {
+  return artCollection.doc(id).update(art)
 }
 
-export const deleteUser = id => {
-  return usersCollection.doc(id).delete()
+export const deleteArt = id => {
+  return artCollection.doc(id).delete()
 }
 
-export const useLoadUsers = () => {
-  const users = ref([])
-  const close = usersCollection.onSnapshot(snapshot => {
-    users.value = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }))
+export const useLoadArt = () => {
+  const articulos = ref([])
+  const close = artCollection.onSnapshot(snapshot => {
+    articulos.value = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }))
   })
   onUnmounted(close)
-  return users
+  return articulos
 }
 
 // EDICIONES
