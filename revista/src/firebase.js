@@ -46,6 +46,10 @@ export const useLoadArt = () => {
   return articulos
 }
 
+export{
+  db
+}
+
 // EDICIONES
 // export const getEdicion = async id => {
 //   const edicion = await edicionesCollection.doc(id).get()

@@ -1,17 +1,17 @@
 <template>
-  <UserCreate />
-  <UserList />
+  <ArticuloCrear />
+  <ArticuloLista />
 </template>
 
 <script>
-import UserCreate from '@/components/UserCreate.vue'
-import UserList from '@/components/UserList.vue'
+import ArticuloCrear from '@/components/ArticuloCrear.vue'
+import ArticuloLista from '@/components/ArticuloLista.vue'
 export default {
   name: 'HomeView',
   components: 
   { 
-  UserCreate, 
-  UserList 
+  ArticuloCrear, 
+  ArticuloLista 
   }
 }
 </script>
