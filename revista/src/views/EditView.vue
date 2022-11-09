@@ -1,24 +1,19 @@
 <template>
   <div class="card card-body mt-4">
-    <h3>Edit users</h3>
+    <h3>Editar Articulo</h3>
     <form @submit.prevent="update">
       <div class="form-group">
-        <label>Name</label>
-        <input v-model="form.name" class="form-control" required />
+        <label>Título</label>
+        <input v-model="form.titulo" class="form-control" required />
       </div>
 
       <div class="form-group mt-3">
-        <label>Email</label>
-        <input
-          v-model="form.email"
-          class="form-control"
-          type="email"
-          required
-        />
+        <label>Texto</label>
+        <input v-model="form.texto" class="form-control" required />
       </div>
 
       <button type="submit" class="btn btn-primary  mt-3">
-        Update
+        Actualizar
       </button>
     </form>
   </div>
@@ -27,27 +22,27 @@
 <script>
 import { reactive, computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { getUser, updateUser } from '@/firebase'
+import { getArt, updateArt } from '@/firebase'
 
 export default {
   setup() {
     const router = useRouter()
     const route = useRoute()
-    const userId = computed(() => route.params.id)
+    const artId = computed(() => route.params.id)
 
-    const form = reactive({ name: '', email: '' })
+    const form = reactive({ titulo: '', texto: '' })
     onMounted(async () => {
-      const user = await getUser(userId.value)
-      console.log(user, userId.value)
-      form.name = user.name
-      form.email = user.email
+      const art = await getArt(artId.value)
+      console.log(art, artId.value)
+      form.titulo = art.titulo
+      form.texto = art.texto
     })
 
     const update = async () => {
-      await updateUser(userId.value, { ...form })
-      router.push('/')
-      form.name = ''
-      form.email = ''
+      await updateArt(artId.value, { ...form })
+      router.push('/HomeView')
+      form.titulo = ''
+      form.texto = ''
     }
 
     return { form, update }
