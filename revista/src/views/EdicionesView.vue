@@ -6,80 +6,34 @@
             <button class="btn btn-primary btn-sm me-2" >
             {{fecha}}
             </button>
-        </router-link></li>
-    </ul>
-
-    <!-- <ul>
-        <li>
-
-            <button class="btn btn-primary btn-sm me-2"  @click="c2019()">
-             2019
-            </button>
-            <button class="btn btn-primary btn-sm me-2"  @click="c2020()">
-             2020
-            </button>
-            <router-link to="/HomeView">
-            <button class="btn btn-primary btn-sm me-2"  @click="c2021()">
-             2021
-            </button>
-            </router-link>
-            <button class="btn btn-primary btn-sm me-2"  @click="c2022()">
-             2022
-            </button>
+        </router-link>
+        <!-- <router-link :to="`/edit/${item.id}`"> -->
+          <button class="btn btn-primary btn-sm me-2">
+            Editar
+          </button>
+        <!-- </router-link> -->
+        <button class="btn btn-danger btn-sm" @click="deleteEdicion(id)" >
+          Borrar
+        </button>
         </li>
-    </ul> -->
-    <!-- <div class="secciones">
-      <ul v-for="item in lista" :key="item.id">
-        <li>{{item.data.seccion}}</li>
-      </ul>
-    </div> -->
+    </ul>
+    <EdicionCrear/>
   </div>
 
 </template>
 
 <script>
-import { db } from '@/firebase'
-import { useLoadEdiciones } from '@/firebase'
-// import { useLoadUsers, deleteUser } from '@/firebase'
+
+import { useLoadEdiciones, deleteEdicion } from '@/firebase'
+import EdicionCrear from '@/components/EdicionCrear.vue'
+
 export default {
+  components:{
+    EdicionCrear
+  },
   setup() {
     const ediciones = useLoadEdiciones()
-    return {ediciones}
-  },
-  data() {
-    return {
-      asign:'',
-      lista: [],
-      matedata: {}
-    };
-  },
-  methods:{
-    clista(){
-      
-      this.lista=[];
-      var secciones = db.collectionGroup('articulos').where('id_edicion', '==', this.asign);
-        secciones.get().then((querySnapshot) => {
-            querySnapshot.forEach((doc) => {
-                this.lista.push({id: doc.id, data: doc.data()});              
-            });
-        });
-    },
-    c2019(){
-       this.asign='2019'; 
-       this.clista();
-    },
-    c2020(){
-       this.asign='2020'; 
-       this.clista();
-    },
-    c2021(){
-       this.asign='2021'; 
-       this.clista();
-    },
-    c2022(){
-       this.asign='2022'; 
-       this.clista();
-    }
+    return {ediciones, deleteEdicion}
   }
 }
 </script>

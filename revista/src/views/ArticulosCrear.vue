@@ -1,7 +1,7 @@
 <template>
 <div class="wrapper">
     <div v-if="successMessage !== ''" class="mensaje"  >
-        <h4>{{ successMessage }}</h4>
+        <h4>{{ successMessage }} </h4>
     </div>
   <div class="fondo">
     <h1>Nuevo Artículo</h1>
@@ -15,16 +15,7 @@
         <label>Texto</label>
         <textarea  v-model="texto" class="form-control" rows="4" style = "resize: none" required></textarea>
       </div>
-      <div class="titulo">
-        <label>Edición:</label>
-        <select v-model="edicion" class="form-select form-select-lg " aria-label="Default select example" required>
-          <option selected></option>
-          <option value="2019">2019</option>
-          <option value="2020">2020</option>
-          <option value="2021">2021</option>
-          <option value="2022">2022</option>
-        </select>
-      </div>
+
       <input id="uploadImage1" type="file" accept="image/*" name="images[1]" class="form-control form-control-lg" onchange="previewImage(1);" @change="onFileSelected" required />
       <br>
       <img v-if="slectedFile" id="uploadPreview1" style="height:10vh"/>
@@ -47,6 +38,8 @@
 <script>
 import firebase from 'firebase'
 import { db } from '@/firebase'
+import { useRoute } from 'vue-router'
+
 export default {
   
   data(){
@@ -57,11 +50,53 @@ export default {
         slectedFile: null,      
         titulo: null,
         texto: null,
-        edicion: null,
         imagen:null,
+        seccionID:"",
+        edicionID:"",
+        seccion:"",
+        edicion:"",
         xhrRequest: false,
         successMessage: "",
     }
+  },
+  mounted(){
+      const route = useRoute()
+      console.warn('route',route.params)
+      this.seccionID = route.params.id
+
+      // SECCIÓN
+      var docSeccion = db.collection("secciones").doc(this.seccionID);
+
+      docSeccion.get().then((doc) => {
+          if (doc.exists) {
+              this.seccion = doc.data().nombre;
+              this.edicionID = doc.data().id_edicion;
+              console.log("Document data:", doc.data().nombre);
+              console.log("Document data:", doc.data().id_edicion);
+
+              
+                  //EDICIÓN
+                  var docEdicion = db.collection("ediciones").doc(this.edicionID);
+
+                  docEdicion.get().then((doc) => {
+                      if (doc.exists) {
+                          this.edicion = doc.data().fecha;
+                          console.log("Document data:", doc.data().fecha);
+                          console.log("SI ENTRAAAA");
+                          
+                      } else {
+                          // doc.data() will be undefined in this case
+                          console.log("No such document!");
+                      }
+                  })
+
+          } else {
+              // doc.data() will be undefined in this case
+              console.log("No such document!");
+          }
+      })
+
+
   },
   methods:{
       onFileSelected(event){
@@ -69,8 +104,11 @@ export default {
         this.successMessage = "";
       },
       setUp(){
+       
         let v = this;
         v.xhrRequest = true;
+
+
         //IMAGEN
         const sotorageref=firebase.storage().ref(`/Imagenes/${this.slectedFile.name}`);
         const task=sotorageref.put(this.slectedFile);
@@ -86,8 +124,9 @@ export default {
                 db.collection('articulos').add({
                     titulo: this.titulo,
                     texto: this.texto,
-                    edicion: this.edicion,
                     imagen: this.picture,
+                    id_edicion: this.edicionID,
+                    id_seccion: this.seccionID 
                 })
                 .then((docRef) => {
                     console.log("Document written with ID: ", docRef.id);
@@ -95,10 +134,8 @@ export default {
                     v.xhrRequest = false;
                       this.titulo= null;
                       this.texto= null;
-                      this.edicion= null;
                       this.slectedFile = null;
-                      // window.location.reload();
-                      document.getElementById("myForm").reset();
+                      this.$router.go(-1);
                     
                 })
                 .catch((error) => {

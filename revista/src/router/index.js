@@ -1,19 +1,14 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '@/views/HomeView.vue'
 import EditView from '@/views/EditView.vue'
 import InicioView from '@/views/InicioView.vue'
 import EdicionesView from '@/views/EdicionesView.vue'
 import EditarEdicion from '@/views/EditarEdicion.vue'
 import SeccionesView from '@/views/SeccionesView.vue'
 import ArticulosView from '@/views/ArticulosView.vue'
+import ArticulosCrear from '@/views/ArticulosCrear.vue'
 
 
 const routes = [
-  {
-    path: '/HomeView',
-    name: 'HomeView',
-    component: HomeView
-  },
   {
     path: '/edit/:id',
     name: 'EditView',
@@ -43,6 +38,11 @@ const routes = [
     path: '/articulos/:id',
     name: 'Articulos',
     component: ArticulosView
+  },
+  {
+    path: '/articulos-crear/:id',
+    name: 'ArticulosCrear',
+    component: ArticulosCrear
   }
 ]
 

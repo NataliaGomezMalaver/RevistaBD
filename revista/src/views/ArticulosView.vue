@@ -23,7 +23,7 @@
                       Editar
                     </button>
                   </router-link>
-                  <button class="btn btn-danger btn-sm" @click="deleteArt(item.id)" >
+                  <button class="btn btn-danger btn-sm" v-on:click="deleteArt(item.id); reload();" >
                     Borrar
                   </button>
                 </td>
@@ -42,6 +42,12 @@
       <h4>No hay articulos </h4>
     </div>
     </div>
+
+    <router-link :to="`/articulos-crear/${seccionID}`">
+      <button class="btn btn-info btn-sm me-2">
+        Nuevo Artículo
+      </button>
+    </router-link>
 
 </template>
 
@@ -109,7 +115,14 @@ export default {
           console.log("Error getting document:", error);
       });
       this.articulosid=id;
-    }
+      },
+      reload(){
+          setTimeout(() => {
+          // document.location.reload();
+          this.$router.go(this.$router.currentRoute)
+          }, 2000);
+          
+      }
     }
 }
 </script>

@@ -51,11 +51,12 @@ export{
 }
 
 // EDICIONES
-// export const getEdicion = async id => {
-//   const edicion = await edicionesCollection.doc(id).get()
-//   return edicion.exists ? user.data() : null
-// }
+
 const edicionesCollection = db.collection('ediciones')
+
+export const createEdicion = edc => {
+  return edicionesCollection.add(edc)
+}
 
 export const useLoadEdiciones = () => {
   const ediciones = ref([])
@@ -69,4 +70,29 @@ export const useLoadEdiciones = () => {
 export const getEdiciones = async id => {
   const art = await edicionesCollection.doc(id).get()
   return art.exists ? art.data() : null
+}
+
+export const deleteEdicion = id => {
+   return edicionesCollection.doc(id).delete()
+}
+
+// SECCIONES
+
+const secCollection = db.collection('secciones')
+
+export const createSeccion = sec => {
+  return secCollection.add(sec)
+}
+
+export const deleteSeccion = id => {
+  return secCollection.doc(id).delete()
+}
+
+export const useLoadSecciones = () => {
+  const secciones = ref([])
+  const close = secCollection.onSnapshot(snapshot => {
+    secciones.value = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }))
+  })
+  onUnmounted(close)
+  return secciones
 }
