@@ -1,6 +1,7 @@
 <template>
   <div >
       <div class="body" >
+        <h1>{{seccion}}</h1>
           <table class="table m-0" >
             <thead>
               <tr>
@@ -48,23 +49,47 @@
 // import firebase from "firebase";
 import {db} from '@/firebase'
 import { useLoadArt, deleteArt} from '@/firebase'
+import { useRoute } from 'vue-router'
+
 export default {
-  setup() {
-    const articulos = useLoadArt()
-    return { articulos, deleteArt}
-  },
-  data(){
+    setup() {
+      const articulos = useLoadArt()
+      return { articulos, deleteArt}
+    },
+    data(){
         return{
             lista: [],
-            item: {}
+            item: {},
+            seccionID: '',
+            seccion:''
         }
     },
-    created(){     
+    mounted(){     
+
+      const route = useRoute()
+      // console.warn('route',route.params)
+      this.seccionID = route.params.id
+
+      var docRef = db.collection("secciones").doc(this.seccionID);
+
+      docRef.get().then((doc) => {
+          if (doc.exists) {
+              this.seccion = doc.data().nombre;
+              console.log("Document data:", doc.data().nombre);
+          } else {
+              // doc.data() will be undefined in this case
+              console.log("No such document!");
+          }
+      }).catch((error) => {
+          console.log("Error getting document:", error);
+      });
+
       this.lista=[];
-      var articulosL = db.collectionGroup('articulos');
+      var articulosL = db.collectionGroup('articulos').where('id_seccion', '==', this.seccionID);
         articulosL.get().then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
-                this.lista.push({id: doc.id, data: doc.data()});    
+                this.lista.push({id: doc.id, data: doc.data()});  
+                console.log('Hola')  
             });
                     
         });

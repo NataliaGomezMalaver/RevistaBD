@@ -1,15 +1,15 @@
 <template>
   <div class="card mt-4">
     <h1>EDICIONES</h1>
-    <!-- <ul v-for="{id, fecha} in ediciones" :key="id">
-        <li><router-link to="/editar-edicion">
-            <button class="btn btn-primary btn-sm me-2">
+    <ul v-for="{id, fecha} in ediciones" :key="id">
+        <li><router-link :to="`/secciones/${id}`">
+            <button class="btn btn-primary btn-sm me-2" >
             {{fecha}}
             </button>
         </router-link></li>
-    </ul> -->
+    </ul>
 
-    <ul>
+    <!-- <ul>
         <li>
 
             <button class="btn btn-primary btn-sm me-2"  @click="c2019()">
@@ -27,12 +27,12 @@
              2022
             </button>
         </li>
-    </ul>
-    <div class="secciones">
+    </ul> -->
+    <!-- <div class="secciones">
       <ul v-for="item in lista" :key="item.id">
         <li>{{item.data.seccion}}</li>
       </ul>
-    </div>
+    </div> -->
   </div>
 
 </template>

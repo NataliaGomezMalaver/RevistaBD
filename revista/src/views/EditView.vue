@@ -40,7 +40,7 @@ export default {
 
     const update = async () => {
       await updateArt(artId.value, { ...form })
-      router.push('/HomeView')
+      router.back()
       form.titulo = ''
       form.texto = ''
     }

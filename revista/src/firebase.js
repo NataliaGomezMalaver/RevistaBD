@@ -65,3 +65,8 @@ export const useLoadEdiciones = () => {
   onUnmounted(close)
   return ediciones
 }
+
+export const getEdiciones = async id => {
+  const art = await edicionesCollection.doc(id).get()
+  return art.exists ? art.data() : null
+}

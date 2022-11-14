@@ -4,6 +4,9 @@ import EditView from '@/views/EditView.vue'
 import InicioView from '@/views/InicioView.vue'
 import EdicionesView from '@/views/EdicionesView.vue'
 import EditarEdicion from '@/views/EditarEdicion.vue'
+import SeccionesView from '@/views/SeccionesView.vue'
+import ArticulosView from '@/views/ArticulosView.vue'
+
 
 const routes = [
   {
@@ -30,6 +33,16 @@ const routes = [
     path: '/editar-edicion',
     name: 'EditarEdicion',
     component: EditarEdicion
+  },
+  {
+    path: '/secciones/:id',
+    name: 'Secciones',
+    component: SeccionesView
+  },
+  {
+    path: '/articulos/:id',
+    name: 'Articulos',
+    component: ArticulosView
   }
 ]
 

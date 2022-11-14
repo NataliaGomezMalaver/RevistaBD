@@ -1,17 +1,17 @@
 <template>
   <ArticuloCrear />
-  <ArticuloLista />
+  <!-- <ArticuloLista /> -->
 </template>
 
 <script>
 import ArticuloCrear from '@/components/ArticuloCrear.vue'
-import ArticuloLista from '@/components/ArticuloLista.vue'
+// import ArticuloLista from '@/components/ArticuloLista.vue'
 export default {
   name: 'HomeView',
   components: 
   { 
   ArticuloCrear, 
-  ArticuloLista 
+  // ArticuloLista 
   }
 }
 </script>
