@@ -7,6 +7,11 @@
             admin
             </button>
         </router-link>
+        <router-link to="/Ver-ediciones">
+            <button class="btn btn-primary btn-sm me-2">
+            Ver revista
+            </button>
+        </router-link>
         <!-- <router-link to="/posts" tag="button">Posts</router-link> -->
 
     </div>
