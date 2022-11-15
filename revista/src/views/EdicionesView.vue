@@ -7,11 +7,7 @@
             {{fecha}}
             </button>
         </router-link>
-        <!-- <router-link :to="`/edit/${item.id}`"> -->
-          <button class="btn btn-primary btn-sm me-2">
-            Editar
-          </button>
-        <!-- </router-link> -->
+
         <button class="btn btn-danger btn-sm" @click="deleteEdicion(id)" >
           Borrar
         </button>

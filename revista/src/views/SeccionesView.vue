@@ -1,26 +1,32 @@
 <template>
-<div class="card mt-4">  
-    <h2> {{edicion}}</h2>
-</div>
-  <div class="card mt-4">
-    <ul v-for="item in lista" :key="item.id">
-        <li><router-link :to="`/articulos/${item.id}`">
-            <button class="btn btn-dark btn-sm me-2" >
-            {{item.data.nombre}}
-            </button>
-        </router-link>
-         <!-- <router-link :to="`/edit/${item.id}`"> -->
-          <button class="btn btn-primary btn-sm me-2">
-            Editar
-          </button>
-        <!-- </router-link> -->
-        <button class="btn btn-danger btn-sm" v-on:click="deleteSeccion(item.id); reload();">
-          Borrar
-        </button>
-        </li>
-    </ul>
+    <div v-if="edit" class="card mt-4">  
+        <form>
+            <input v-model="edicion" type="text" required/>
+        </form>
+        <button  class="btn btn-success mt-2" @click="act()"> Actualizar </button>
+    </div>
+    <div v-else class="card mt-4">  
+        <h2> 
+            {{edicion}}
+            <button class="btn btn-info btn-sm me-2" @click="editButton()" >Cambiar Fecha</button>
+        </h2>
+    </div>    
+    <div class="card mt-4">
+        <ul v-for="item in lista" :key="item.id">
+            <li><router-link :to="`/articulos/${item.id}`">
+                <button class="btn btn-dark btn-sm me-2" >
+                {{item.data.nombre}}
+                </button>
+            </router-link>
 
-  </div>
+            <!-- </router-link> -->
+            <button class="btn btn-danger btn-sm" v-on:click="deleteSeccion(item.id); reload();">
+            Borrar
+            </button>
+            </li>
+        </ul>
+
+    </div>
 
    <div class="card card-body mt-4" id="myForm">
     <h3>NUEVA SECCIÓN</h3>
@@ -41,9 +47,6 @@
 
 import { db , deleteSeccion, useLoadSecciones} from '@/firebase'
 import { useRoute } from 'vue-router'
-// import { useRoute, useRouter } from 'vue-router'
-// import { createSeccion } from '@/firebase'
-// import { reactive } from 'vue'
 
 export default {
 
@@ -53,7 +56,8 @@ export default {
             edicion:'',
             edicionID:'',
             nombre:'',
-            lista:[]
+            lista:[],
+            edit: false
         }
     },
     created()
@@ -106,18 +110,30 @@ export default {
                 this.nombre = null;
                 this.$router.go(this.$router.currentRoute)
 
-                // document.getElementById("myForm").reset();
-               
             })
             .catch((error) => {
                 console.error("Error adding document: ", error);
             });
-            // location.reload() 
                 
+        },
+        act(){
+            db.collection("ediciones").doc(this.edicionID).set({
+                fecha: this.edicion
+            })
+            .then(() => {
+                console.log(this.fecha)
+                console.log("Document successfully written!");
+                this.edit = false;
+            })
+            .catch((error) => {
+                console.error("Error writing document: ", error);
+            });
+        },
+        editButton(){
+            this.edit = true;
         },
         reload(){
             setTimeout(() => {
-            // document.location.reload();
             this.$router.go(this.$router.currentRoute)
             }, 2000);
             

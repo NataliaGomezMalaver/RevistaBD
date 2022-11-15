@@ -1,7 +1,18 @@
 <template>
+  <div v-if="edit" class="card mt-4">  
+      <form>
+          <input v-model="seccion" type="text" required/>
+      </form>
+      <button  class="btn btn-success mt-2" @click="act()"> Actualizar </button>
+  </div>
+  <div v-else class="card mt-4">  
+      <h2> 
+          {{seccion}}
+          <button class="btn btn-info btn-sm me-2" @click="editButton()" > Cambiar Nombre </button>
+      </h2>
+  </div>    
   <div >
       <div class="body" >
-        <h1>{{seccion}}</h1>
           <table class="table m-0" >
             <thead>
               <tr>
@@ -30,9 +41,6 @@
               </tr>
             </tbody>
           </table>
-
-
-        
       </div>
   </div>    
  
@@ -67,7 +75,8 @@ export default {
             lista: [],
             item: {},
             seccionID: '',
-            seccion:''
+            seccion:'',
+            edit: false
         }
     },
     mounted(){     
@@ -116,11 +125,26 @@ export default {
       });
       this.articulosid=id;
       },
+      act(){
+        db.collection("secciones").doc(this.seccionID).update({
+            nombre: this.seccion
+        })
+        .then(() => {
+            console.log(this.fecha)
+            console.log("Document successfully written!");
+            this.edit = false;
+        })
+        .catch((error) => {
+            console.error("Error writing document: ", error);
+        });
+      },
+      editButton(){
+        this.edit = true;
+      },
       reload(){
-          setTimeout(() => {
-          // document.location.reload();
-          this.$router.go(this.$router.currentRoute)
-          }, 2000);
+        setTimeout(() => {
+        this.$router.go(this.$router.currentRoute)
+        }, 2000);
           
       }
     }
