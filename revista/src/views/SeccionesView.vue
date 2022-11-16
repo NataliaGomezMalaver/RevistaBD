@@ -1,42 +1,39 @@
 <template>
     <div v-if="edit" class="card mt-4">  
         <form>
-            <input v-model="edicion" type="text" required/>
+            <input class="tabla" v-model="edicion" type="text" required/>
         </form>
-        <button  class="btn btn-success mt-2" @click="act()"> Actualizar </button>
+        <button class="botones-listas" @click="act()"> Actualizar </button>
     </div>
     <div v-else class="card mt-4">  
-        <h2> 
+        <h1> 
             {{edicion}}
-            <button class="btn btn-info btn-sm me-2" @click="editButton()" >Cambiar Fecha</button>
-        </h2>
+            <button class="botonEditar" @click="editButton()" >Cambiar Fecha</button>
+        </h1>
     </div>    
-    <div class="card mt-4">
-        <ul v-for="item in lista" :key="item.id">
-            <li><router-link :to="`/articulos/${item.id}`">
-                <button class="btn btn-dark btn-sm me-2" >
+    <div class="lista">
+        <div class="card text-center mt-4" v-for="item in lista" :key="item.id">
+            <router-link :to="`/articulos/${item.id}`">
+                <button class="botonfechas">
                 {{item.data.nombre}}
                 </button>
             </router-link>
-
-            <!-- </router-link> -->
-            <button class="btn btn-danger btn-sm" v-on:click="deleteSeccion(item.id); reload();">
+            <button class="botones-listas" v-on:click="deleteSeccion(item.id); reload();">
             Borrar
             </button>
-            </li>
-        </ul>
+    </div>
 
     </div>
 
    <div class="card card-body mt-4" id="myForm">
-    <h3>NUEVA SECCIÓN</h3>
+    <h1>NUEVA SECCIÓN</h1>
     <form >
       <div class="form-group">
-        <label>Nombre Sección</label>
+        <p>Nombre Sección</p>
         <input v-model="nombre" class="form-control" required />
       </div>
     </form>
-      <button @click="setUp()" class="btn btn-success mt-3">
+      <button class="botones-listas" @click="setUp()">
         Crear
       </button>
   </div>

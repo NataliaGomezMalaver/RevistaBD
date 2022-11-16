@@ -1,20 +1,18 @@
 <template>
-  <div class="card mt-4">
-    <h1>EDICIONES</h1>
-    <ul v-for="{id, fecha} in ediciones" :key="id">
-        <li><router-link :to="`/secciones/${id}`">
-            <button class="btn btn-primary btn-sm me-2" >
-            {{fecha}}
-            </button>
-        </router-link>
-
-        <button class="btn btn-danger btn-sm" @click="deleteEdicion(id)" >
-          Borrar
-        </button>
-        </li>
-    </ul>
-    <EdicionCrear/>
+  <h1>EDICIONES</h1>
+  <div class="lista">
+        <div class="card text-center mt-4 " v-for="{id, fecha} in ediciones" :key="id">
+          <router-link :to="`/secciones/${id}`">
+              <button class="botonfechas">
+              {{fecha}}
+              </button>
+          </router-link>
+            <button class="botones-listas" @click="deleteEdicion(id)" >
+            Borrar
+          </button>
+        </div>
   </div>
+  <EdicionCrear/>
 
 </template>
 

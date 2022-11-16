@@ -1,23 +1,23 @@
 <template>
   <div  class="card mt-4">  
-      <h2> 
+      <h1 class="titulo1"> 
           {{seccion}}
-      </h2>
+      </h1>
   </div>    
   <div >
-      <div class="body" >
+      <div class="tabla" >
               <div class="card mt-4" v-for="item in lista" :key="item.id">
                 <h1>{{item.data.titulo }}</h1>
                 <p>{{item.data.texto }}</p>
-                <img :src=item.data.imagen style="height:50vh" >
+                <img :src=item.data.imagen style="width: 100%;" >
               </div>
       </div>
   </div>    
  
 
-   <div v-if="!lista.length" class="prueba">
+   <div class="card card-body mt-4" v-if="!lista.length" >
     <div class="item">
-      <h4>No hay articulos </h4>
+      <p>No hay articulos </p>
     </div>
     </div>
 

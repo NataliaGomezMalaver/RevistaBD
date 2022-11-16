@@ -1,15 +1,14 @@
 <template>
-    <div class="card mt-4">
       <h1>EDICIONES</h1>
-      <ul v-for="{id, fecha} in ediciones" :key="id">
-          <li><router-link :to="`/Ver-secciones/${id}`">
-              <button class="btn btn-primary btn-sm me-2" >
+      <div class="lista">
+        <div class="card text-center mt-4 " v-for="{id, fecha} in ediciones" :key="id">
+          <router-link :to="`/Ver-secciones/${id}`">
+              <button class="botonfechas">
               {{fecha}}
               </button>
           </router-link>
-          </li>
-      </ul>
       <EdicionCrear/>
+      </div>
     </div>
   
   </template>

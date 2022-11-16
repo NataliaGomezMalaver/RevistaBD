@@ -6,7 +6,7 @@
   <div class="fondo">
     <h1>Nuevo Artículo</h1>
     <div class="formulario" id="myForm">
-    <form>            
+    <form class="tabla">            
       <div class="titulo">
         <label>Título</label>
         <input  v-model="titulo" class="form-control form-control-lg"  required />
@@ -15,10 +15,12 @@
         <label>Texto</label>
         <textarea  v-model="texto" class="form-control" rows="4" style = "resize: none" required></textarea>
       </div>
-
-      <input id="uploadImage1" type="file" accept="image/*" name="images[1]" class="form-control form-control-lg" onchange="previewImage(1);" @change="onFileSelected" required />
+      <div class="tabla-imagen">
+        <input id="uploadImage1" type="file" accept="image/*" name="images[1]" class="form-control form-control-lg" onchange="previewImage(1);" @change="onFileSelected" required />
       <br>
       <img v-if="slectedFile" id="uploadPreview1" style="height:10vh"/>
+      </div>
+
     </form>
     </div>
   </div>
@@ -27,7 +29,7 @@
     <div v-if="xhrRequest" class="spinner-border text-secondary _loader" role="status">
         <span class="sr-only"></span>
     </div>
-    <button @click="setUp()" class="btn btn-primary btn-sm me-2" >
+    <button class="botones" @click="setUp()">
         <span v-if="! xhrRequest">Enviar</span>
         <span v-if="xhrRequest">Enviar</span>
     </button>

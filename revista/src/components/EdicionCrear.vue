@@ -1,16 +1,14 @@
 <template>
-  <div class="card card-body mt-4">
-    <h3>NUEVA EDICIÓN</h3>
+  <div class="card mt-4">
+    <h1>NUEVA EDICIÓN</h1>
     <form @submit.prevent="onSubmit">
-      <div class="form-group">
-        <label>Fecha Edicion</label>
+      <div class="card card-body mt-4" id="myForm">
+        <p>Fecha Edicion</p>
         <input v-model="form.fecha" class="form-control" required />
-      </div>
-  
-      <button type="submit" class="btn btn-success mt-3">
+      <button type="submit" class="botones-listas">
         Crear
       </button>
-
+      </div>
     </form>
   </div>
 </template>

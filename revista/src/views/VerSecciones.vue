@@ -1,29 +1,27 @@
 <template>
   <div class="card mt-4">  
-      <h2> 
+      <h1> 
           {{edicion}}
-      </h2>
+      </h1>
   </div>    
-  <div class="card mt-4">
-      <ul v-for="item in lista" :key="item.id">
-          <li><router-link :to="`/ArticulosSeccion/${item.id}`">
-              <button class="btn btn-dark btn-sm me-2" >
+  <div class="lista">
+        <div class="card mt-4" v-for="item in lista" :key="item.id">
+          <router-link :to="`/ArticulosSeccion/${item.id}`">
+              <button class="botonfechas">
               {{item.data.nombre}}
               </button>
           </router-link>
-          </li>
-      </ul>
+        </div>
   </div>
 
-  <div class="card mt-4">
-    <ul v-for="item in listaArt" :key="item.id">
-          <li>
+<div class="tabla">
+    <div class="card mt-4" v-for="item in listaArt" :key="item.id">
             <h1>{{item.data.titulo }}</h1>
             <p>{{item.data.texto }}</p>
-            <img :src=item.data.imagen style="height:10vh" >
-          </li>
-      </ul>
-  </div>
+            <img :src=item.data.imagen style="width:100%" >
+    </div>
+</div>
+
 
 
 </template>

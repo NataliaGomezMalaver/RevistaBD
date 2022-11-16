@@ -1,21 +1,21 @@
 <template>
   <div v-if="edit" class="card mt-4">  
-      <form>
-          <input v-model="seccion" type="text" required/>
+      <form class>
+          <input class="tabla" v-model="seccion" type="text" required/>
       </form>
-      <button  class="btn btn-success mt-2" @click="act()"> Actualizar </button>
+      <button class="botones-listas"  @click="act()"> Actualizar </button>
   </div>
   <div v-else class="card mt-4">  
-      <h2> 
+      <h1> 
           {{seccion}}
-          <button class="btn btn-info btn-sm me-2" @click="editButton()" > Cambiar Nombre </button>
-      </h2>
+          <button class="botonEditar" @click="editButton()" > Cambiar Nombre </button>
+      </h1>
   </div>    
   <div >
-      <div class="body" >
+      <div class="card mt-4" >
           <table class="table m-0" >
-            <thead>
-              <tr>
+            <thead >
+              <tr class="tabla">
                 <th scope="col">Título</th>
                 <th scope="col">Texto</th>
                 <th scope="col">Imagen</th>
@@ -23,18 +23,18 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="item in lista" :key="item.id">
+              <tr class="tabla" v-for="item in lista" :key="item.id">
                 <td>{{item.data.titulo }}</td>
                 <td>{{item.data.texto }}</td>
-                <td> <img :src=item.data.imagen style="height:10vh" > </td>
+                <td> <img :src=item.data.imagen style="height:20vh" > </td>
 
                 <td>
                   <router-link :to="`/edit/${item.id}`">
-                    <button class="btn btn-primary btn-sm me-2">
+                    <button class="botones-listas">
                       Editar
                     </button>
                   </router-link>
-                  <button class="btn btn-danger btn-sm" v-on:click="deleteArt(item.id); reload();" >
+                  <button class="botones-listas" v-on:click="deleteArt(item.id); reload();" >
                     Borrar
                   </button>
                 </td>
@@ -45,18 +45,19 @@
   </div>    
  
 
-   <div v-if="!lista.length" class="prueba">
+   <div class="card card-body mt-4" v-if="!lista.length" >
     <div class="item">
-      <h4>No hay articulos </h4>
+      <p>No hay articulos </p>
     </div>
     </div>
 
-    <router-link :to="`/articulos-crear/${seccionID}`">
-      <button class="btn btn-info btn-sm me-2">
-        Nuevo Artículo
-      </button>
-    </router-link>
-
+    <div class="card text-center mt-4">
+      <router-link :to="`/articulos-crear/${seccionID}`">
+        <button class="botones-listas">
+          Nuevo Artículo
+        </button>
+      </router-link>
+    </div>
 </template>
 
 <script>
